@@ -1,0 +1,46 @@
+<div class="wrapper">
+
+  <div>
+    <button (click)="clearAll()">Clear All</button>
+  </div>
+
+  <mat-card class="todo-list">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>To Do List</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="uncompletedTasks$ | async; let tasks">
+        <ng-container *ngIf="tasks.length > 0; else noTasks">
+          <app-todo-list [tasks]="tasks" (taskChange)="updateTask($event)">
+          </app-todo-list>
+        </ng-container>
+        <ng-template #noTasks>
+          <h4>No Tasks Defined</h4>
+        </ng-template>
+      </ng-container>
+      <app-todo-form (addTaskEvent)="addTask($event)"></app-todo-form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="completed-list">
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Completed</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="completedTasks$ | async; let tasks">
+        <ng-container *ngIf="tasks.length > 0; else noCompletedTasks">
+          <app-todo-list [tasks]="tasks" (taskChange)="updateTask($event)">
+          </app-todo-list>
+        </ng-container>
+        <ng-template #noCompletedTasks>
+          <h4>You've done nothing!</h4>
+        </ng-template>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+
+</div>

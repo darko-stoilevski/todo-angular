@@ -1,0 +1,5 @@
+<mat-list role="list">
+  <app-todo-item *ngFor="let task of tasks" [task]="task"
+                 (taskChanged)="onTaskChanged(task, $event)">
+  </app-todo-item>
+</mat-list>
